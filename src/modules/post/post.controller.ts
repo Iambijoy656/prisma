@@ -18,7 +18,7 @@ const createPost = async (req: Request, res: Response) => {
 }
 
 const getPosts = async (req: Request, res: Response) => {
-    console.log(req.query);
+    // console.log(req.query);
     const options = req.query
     try {
         const result = await PostService.getAllPosts(options);
@@ -35,7 +35,71 @@ const getPosts = async (req: Request, res: Response) => {
     }
 }
 
+
+const updatePost = async (req: Request, res: Response) => {
+
+    const id = parseInt(req.params.id)
+
+    try {
+        const result = await PostService.updatePost(id, req.body);
+        res.send({
+            success: true,
+            message: "update posts Successfully",
+            data: result
+        })
+
+    } catch (e) {
+        res.send(e)
+
+    }
+}
+
+
+
+const deletePost = async (req: Request, res: Response) => {
+
+    const id = parseInt(req.params.id)
+
+    try {
+        const result = await PostService.deletePost(id);
+        res.send({
+            success: true,
+            message: "Delete post Successfully",
+            data: result
+        })
+
+    } catch (e) {
+        res.send(e)
+
+    }
+}
+
+
+const learnAggregateAndGrouping = async (req: Request, res: Response) => {
+
+    const id = parseInt(req.params.id)
+
+    try {
+        const result = await PostService.learnAggregateAndGrouping();
+        res.send({
+            success: true,
+            message: "Results!!",
+            data: result
+        })
+
+    } catch (e) {
+        res.send(e)
+
+    }
+}
+
+
+
+
 export const PostController = {
     createPost,
-    getPosts
+    getPosts,
+    updatePost,
+    deletePost,
+    learnAggregateAndGrouping
 }

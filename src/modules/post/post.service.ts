@@ -71,7 +71,62 @@ const getAllPosts = async (options: any) => {
 }
 
 
+const updatePost = async (id: number, payload: Partial<Post>): Promise<Post> => {
+    const result = await prisma.post.update({
+        where: { id },
+        data: payload
+    })
+
+    return result;
+
+}
+
+const deletePost = async (id: number): Promise<Post> => {
+    const result = await prisma.post.delete({
+        where: { id }
+    })
+
+    return result;
+
+}
+
+
+const learnAggregateAndGrouping = async () => {
+    // const result = await prisma.post.aggregate({
+    //     _avg: {
+    //         authorId: true,
+    //         categoryId: true
+    //     },
+    //     _count: {
+    //         authorId: true
+    //     },
+    //     _sum: {
+    //         authorId: true
+    //     }
+    // })
+
+
+    const result = await prisma.post.groupBy({
+        by: ['title'],
+        _count: {
+            title: true
+        }
+    })
+    return result;
+
+}
+
+
+
+
+
+
+
+
 export const PostService = {
     createPost,
-    getAllPosts
+    getAllPosts,
+    updatePost,
+    deletePost,
+    learnAggregateAndGrouping
 }
